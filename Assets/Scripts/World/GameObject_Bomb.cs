@@ -33,11 +33,15 @@ public class GameObject_Bomb : MonoBehaviour
     {
         float distanceToTarget = Vector3.Distance(transform.position, _target.position);
         bIsFollowing = true;
+
+        Debug.LogWarning("Player currently targeted by bomb!");
     }
 
     void OnTriggerExit(Collider other)
     {
         if (bIsFollowing) bIsFollowing = false;
+
+        Debug.LogWarning("Player evaded the bomb");
     }
 
     void OnCollisionEnter(Collision collision)
