@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 15f;
-    [SerializeField] private float rotationSpeed = 180f;
-    [SerializeField] private float deadzone = 0.2f; // for OnScreen joystick controller.
+    [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] private float _rotationSpeed = 40f;
+
+    [SerializeField] private  OnScreenJoystick _joystick;
+    [SerializeField] private float _deadzone = 0.2f; // for OnScreen joystick controller.
     
 
     // References.
-    private Rigidbody rb;
-    private Transform characterTransform;
+    private Rigidbody _rb;
+    private Transform _characterTransform;
 
 
     // Variables.
@@ -21,15 +24,15 @@ public class MovementController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        characterTransform = transform;
+        _rb = GetComponent<Rigidbody>();
+        _characterTransform = transform;
     }
 
     void FixedUpdate()
     {
         _playerInput = GetInput();
 
-        if (_playerInput.magnitude > deadzone)
+        if (_playerInput.magnitude > _deadzone)
         {
             Move();
             RotateTowardsMovement();
@@ -39,13 +42,18 @@ public class MovementController : MonoBehaviour
 
     private Vector2 GetInput()
     {
-        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        
+        if (_joystick._InputDir != Vector2.zero)
+        {
+            return _playerInput = _joystick._InputDir;
+        }
+        else return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
     }
 
     private void Move()
     {
         Vector3 movementDirection =  new Vector3(_playerInput.x, 0, _playerInput.y); // Didn't used vector3 from beggining for RotateTowardsMovement, dont forget it.
-        rb.MovePosition(transform.position + movementDirection * movementSpeed * Time.deltaTime);
+        _rb.MovePosition(transform.position + movementDirection * _movementSpeed * Time.deltaTime);
     }
 
     private void RotateTowardsMovement()
@@ -54,12 +62,12 @@ public class MovementController : MonoBehaviour
         float rotation = Mathf.LerpAngle(
             transform.rotation.eulerAngles.y,
             targetAngle,
-            rotationSpeed * Time.deltaTime);
+            _rotationSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
     private void StopMovement()
     {
-        rb.velocity = Vector3.zero;
+        _rb.velocity = Vector3.zero;
     }
 }
