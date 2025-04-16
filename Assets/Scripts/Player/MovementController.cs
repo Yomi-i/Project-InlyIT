@@ -52,7 +52,7 @@ public class MovementController : MonoBehaviour
 
     private void Move()
     {
-        Vector3 movementDirection =  new Vector3(_playerInput.x, 0, _playerInput.y); // Didn't used vector3 from beggining for RotateTowardsMovement, dont forget it.
+        Vector3 movementDirection =  new Vector3(_playerInput.x, 0, _playerInput.y);
         _rb.MovePosition(transform.position + movementDirection * _movementSpeed * Time.deltaTime);
     }
 

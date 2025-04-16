@@ -18,7 +18,6 @@ public class LevelBoundares : MonoBehaviour
         _characterTransform = transform;
     }
 
-    // Late update called after FixedUpdate so after Player did his move first.
     void LateUpdate()
     {
         Vector3 currentPosition = _characterTransform.position;
