@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] public float _movementSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 40f;
 
     [SerializeField] private  OnScreenJoystick _joystick;
