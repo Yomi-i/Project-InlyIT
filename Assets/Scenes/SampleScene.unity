@@ -778,13 +778,21 @@ PrefabInstance:
       propertyPath: m_ImplicitTensor
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2539758331867880883, guid: c2a587faf5bd9c2449e338bafd70174f, type: 3}
+      propertyPath: movementSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539758331867880883, guid: c2a587faf5bd9c2449e338bafd70174f, type: 3}
+      propertyPath: rotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7748109095410304625, guid: c2a587faf5bd9c2449e338bafd70174f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7748109095410304625, guid: c2a587faf5bd9c2449e338bafd70174f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7748109095410304625, guid: c2a587faf5bd9c2449e338bafd70174f, type: 3}
       propertyPath: m_LocalPosition.z
