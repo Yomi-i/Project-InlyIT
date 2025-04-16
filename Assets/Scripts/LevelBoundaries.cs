@@ -29,14 +29,4 @@ public class LevelBoundares : MonoBehaviour
             _characterTransform.position = currentPosition;
         }
     }
-    
-    // remove later
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(
-            new Vector3((_minX + _maxX) / 2, 0, (_minZ + _maxZ) / 2),
-            new Vector3(_maxX - _minX,  0.1f, _maxZ - _minZ)
-        );
-    }
 }
