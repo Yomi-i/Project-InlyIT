@@ -61,6 +61,16 @@ public class InteractionLogger : MonoBehaviour
         }
     }
 
+    public String ReadLogFile()
+    {
+        string fileText = "";
+        if (File.Exists(_logFilePath))
+        {
+            fileText = File.ReadAllText(_logFilePath);
+        }
+        return fileText;
+    }
+
     public void ClearLogFile()
     {
         try 

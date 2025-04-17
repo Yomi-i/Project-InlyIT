@@ -38,7 +38,7 @@ public class GameObject_Note : MonoBehaviour
 
             Destroy(gameObject);
 
-            if (InteractionLogger.Instance != null) InteractionLogger.Instance.LogInteraction("Player", "Note");
+            if (InteractionLogger.Instance != null) InteractionLogger.Instance.LogInteraction("Player", $"Note with writing: {_noteText}");
             Debug.Log("Picked up a note.");
         }
     }

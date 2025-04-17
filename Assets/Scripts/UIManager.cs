@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private KeyCode _closeNoteKey;
     [SerializeField] private GameObject _notePanel;
     [SerializeField] private Text _noteText;
+    [SerializeField] private Button _logButton;
 
 
     // flags.
@@ -27,22 +28,7 @@ public class UIManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void ShowNote(string text)
-    {
-        if (bIsNoteOpen) CloseNote();
-        _noteText.text = text;
-        _notePanel.SetActive(true);
-        bIsNoteOpen = true;
-    }
-
-    public void CloseNote()
-    {
-        _notePanel.SetActive(false);
-        _noteText.text = null;
-        bIsNoteOpen = false;
-    }
-
-    private void Update()
+        private void Update()
     {
         if (bIsNoteOpen)
         {
@@ -51,5 +37,30 @@ public class UIManager : MonoBehaviour
                 CloseNote();
             }
         }
+    }
+
+    public void ShowNote(string text)
+    {
+        if (bIsNoteOpen) CloseNote();
+        _noteText.text = text;
+        _notePanel.SetActive(true);
+        bIsNoteOpen = true;
+    }
+
+    public void ShowLogNote()
+    {
+        if (bIsNoteOpen) _noteText.text = null;
+        _noteText.text = InteractionLogger.Instance.ReadLogFile();
+        _notePanel.SetActive(true);
+        _logButton.gameObject.SetActive(false);
+        bIsNoteOpen = true;
+    }
+
+    public void CloseNote()
+    {
+        _notePanel.SetActive(false);
+        _noteText.text = null;
+        _logButton.gameObject.SetActive(true);
+        bIsNoteOpen = false;
     }
 }
