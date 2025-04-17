@@ -53,6 +53,7 @@ public class GameObject_Bomb : MonoBehaviour
             if (playerHealth != null) playerHealth.ReduceHealth(_damageAmount);
             Destroy(gameObject);
 
+            if (InteractionLogger.Instance != null) InteractionLogger.Instance.LogInteraction("Player", "Bomb");
             Debug.Log("Damage taken from bomb!");
         }
     }

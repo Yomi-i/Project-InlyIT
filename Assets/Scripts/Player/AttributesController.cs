@@ -67,6 +67,7 @@ public class AttributesController : MonoBehaviour
     private void OnDeath()
     {
         Destroy(gameObject);
+        InteractionLogger.Instance.ClearLogFile();
         // TODO: show end game screen with retry;
     }
 }

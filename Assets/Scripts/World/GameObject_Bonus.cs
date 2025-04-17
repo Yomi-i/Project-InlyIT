@@ -15,7 +15,8 @@ public class GameObject_Bonus : MonoBehaviour
             AttributesController playerAttributes = collision.gameObject.GetComponent<AttributesController>();
             playerAttributes.AffectMovement(_movementMultiplier, _bonusDuration);
             Destroy(gameObject);
-
+            
+            if (InteractionLogger.Instance != null) InteractionLogger.Instance.LogInteraction("Player", "Bonus");
             Debug.Log("Bonus taken!");
         }
     }

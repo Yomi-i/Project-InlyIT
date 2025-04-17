@@ -14,6 +14,7 @@ public class GameObject_HealthPack : MonoBehaviour
             if (playerHealth != null) playerHealth.ReduceHealth(_healthAmount);
             Destroy(gameObject);
 
+            if (InteractionLogger.Instance != null) InteractionLogger.Instance.LogInteraction("Player", "Health pack");
             Debug.Log("Health taken from health pack!");
         }
     }

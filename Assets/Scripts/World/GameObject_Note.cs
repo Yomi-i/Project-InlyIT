@@ -7,14 +7,9 @@ using UnityEngine;
 public class GameObject_Note : MonoBehaviour
 {
     // Variables.
-    [SerializeField] private string _textFilePAth = "note_text.txt";
+    private readonly string _textFilePAth = "note_text.txt";
     private List<string> _noteLines = new List<string>();
     private string _noteText;
-
-
-    // References.
-    private UIManager _UImanager;
-
     
     void OnCollisionEnter(Collision collision)
     {
@@ -35,14 +30,15 @@ public class GameObject_Note : MonoBehaviour
                 _noteText = "...";
             }
 
-            _UImanager = UIManager.Instance;
-            if (_UImanager != null)
+            if (UIManager.Instance != null)
             {
-                _UImanager.ShowNote(_noteText);
+                UIManager.Instance.ShowNote(_noteText);
             }
             else Debug.LogWarning("Unable to find UIManager instance");
 
             Destroy(gameObject);
+
+            if (InteractionLogger.Instance != null) InteractionLogger.Instance.LogInteraction("Player", "Note");
             Debug.Log("Picked up a note.");
         }
     }
