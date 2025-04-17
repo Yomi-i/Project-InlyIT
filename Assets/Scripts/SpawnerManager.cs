@@ -5,8 +5,15 @@ public class SpawnerManager : MonoBehaviour
 {
     // Variables.
     [Header("Spawner range")]
-    [SerializeField] private float _RangeX = 12.5f;
-    [SerializeField] private float _RangeZ = 12.5f;
+    [SerializeField] private float _RangeX = 12f;
+    [SerializeField] private float _RangeZ = 12f;
+
+    [Header("Spawner restictions")]
+    [SerializeField] private Transform _playerTransform;
+    [SerializeField] private float _minDistanceFromPlayer = 5f;
+    [SerializeField] private float _minSpawnCooldown = 2f;
+    [SerializeField] private float _maxSpawnCooldown = 5f;
+
 
     [Header("Prefabs")]
     [SerializeField] private GameObject notePrefab;
@@ -37,7 +44,7 @@ public class SpawnerManager : MonoBehaviour
     {
         while(true)
         {
-            float waitTime = Random.Range(2f, 5f);
+            float waitTime = Random.Range(_minSpawnCooldown, _maxSpawnCooldown);
             yield return new WaitForSeconds(waitTime);
 
             SpawnRandomObject();
@@ -51,10 +58,10 @@ public class SpawnerManager : MonoBehaviour
         bIsSpawning = true;
 
         GameObject randomPrefab = _availablePrefabs[Random.Range(0, _availablePrefabs.Length)];
+        Vector3 randomSpawnPos = FindSpawnPos();
         if (randomPrefab)
         {
-            Vector3 randomSpawnPos = new Vector3(Random.Range(-_RangeX, _RangeX), 1, Random.Range(-_RangeZ, _RangeZ));
-            Instantiate(randomPrefab, randomSpawnPos, Quaternion.identity);
+                Instantiate(randomPrefab, randomSpawnPos, Quaternion.identity);
         }
         else 
         {
@@ -64,5 +71,21 @@ public class SpawnerManager : MonoBehaviour
         }
 
         bIsSpawning = false;
+    }
+
+    private Vector3 FindSpawnPos()
+    {
+        while(bIsSpawning)
+        {
+            Vector3 safeSpawnPos = new Vector3(
+                Random.Range(-_RangeX, _RangeX),
+                1,
+                Random.Range(-_RangeZ, _RangeZ));
+            float distanceToPlayer = Vector3.Distance(safeSpawnPos, _playerTransform.position);
+            
+            if (distanceToPlayer >= _minDistanceFromPlayer) return safeSpawnPos;
+        }
+
+        return Vector3.zero;
     }
 }

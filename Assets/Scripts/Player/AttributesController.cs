@@ -46,11 +46,20 @@ public class AttributesController : MonoBehaviour
 
     public void AffectMovement(float amount, float duration)
     {
+        if (bIsAffected)
+        {
+            _boosterDuration += duration;
+
+            Debug.Log("Movement increase prolonged, last duration: " + _boosterDuration);
+        }
+        else
+        {
         _playerMovementMult = amount;
         _boosterDuration = duration;
         _nonAffectedMoveSpeed = _movementController._movementSpeed;
         _movementController._movementSpeed *= _playerMovementMult;
         bIsAffected = true;
+        }
 
         Debug.Log("Movement multiplied: "+ _playerMovementMult + " for " + _boosterDuration);
     }
