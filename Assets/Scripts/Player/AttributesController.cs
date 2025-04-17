@@ -39,7 +39,7 @@ public class AttributesController : MonoBehaviour
     {
         _playerHealth -= amount;
         if (_playerHealth > _playerHealthMax) _playerHealth = _playerHealthMax;
-        Debug.LogWarning("Player health: " +_playerHealth);
+        Debug.Log("Player health: " +_playerHealth);
         
         if (_playerHealth <= 0) OnDeath();
     }
@@ -52,7 +52,7 @@ public class AttributesController : MonoBehaviour
         _movementController._movementSpeed *= _playerMovementMult;
         bIsAffected = true;
 
-        Debug.LogWarning("Movement multiplied: "+ _playerMovementMult + " for " + _boosterDuration);
+        Debug.Log("Movement multiplied: "+ _playerMovementMult + " for " + _boosterDuration);
     }
 
     private void EndAffectingMovement()
@@ -61,7 +61,7 @@ public class AttributesController : MonoBehaviour
         _boosterDuration = 0f;
         _movementController._movementSpeed = _nonAffectedMoveSpeed;
 
-        Debug.LogWarning("Movement multiplier ended");
+        Debug.Log("Movement multiplier ended");
     }
 
     private void OnDeath()
