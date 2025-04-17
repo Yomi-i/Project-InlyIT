@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public class UIManager : MonoBehaviour,
-IPointerUpHandler
+public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
@@ -53,10 +51,5 @@ IPointerUpHandler
                 CloseNote();
             }
         }
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
     }
 }
