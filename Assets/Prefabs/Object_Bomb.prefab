@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 7712697725671978669}
   - component: {fileID: 1559815986867032057}
   - component: {fileID: 2499924775490261969}
+  - component: {fileID: 1415157381771109852}
   m_Layer: 0
   m_Name: Object_Bomb
   m_TagString: World
@@ -131,12 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a694c10347011e4db4fd99459f73a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 30
   _damageAmount: 10
   _target: {fileID: 0}
   _followSpeed: 3.5
-  _detectionRange: 5
-  offset: {x: 0, y: 0, z: 0}
 --- !u!135 &1559815986867032057
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -179,6 +177,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1415157381771109852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553771158492097376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df87f58895f874eb238d0fdb7bcbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 30
 --- !u!1 &6224294523678278285
 GameObject:
   m_ObjectHideFlags: 0

@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 8106194990706993059}
   - component: {fileID: 2565593930715079956}
   - component: {fileID: 1559815986867032057}
+  - component: {fileID: 3744943230233627431}
   m_Layer: 0
   m_Name: Object_HealthPack
   m_TagString: World
@@ -235,3 +236,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3744943230233627431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553771158492097376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df87f58895f874eb238d0fdb7bcbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 30

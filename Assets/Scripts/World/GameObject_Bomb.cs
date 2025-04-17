@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class GameObject_Bomb : MonoBehaviour
 {
-    // Variables,
-    [SerializeField] private float _rotationSpeed = 30f;
+    // Variables.
     [SerializeField] private float _damageAmount = 10f;
-
-    [SerializeField] private Transform _target;
     [SerializeField] private float _followSpeed = 3.5f;
-    
+    private Transform _target;
+
 
     // Flags.
     private bool bIsFollowing = false;
@@ -18,8 +16,7 @@ public class GameObject_Bomb : MonoBehaviour
 
     void Update()
     {
-        if (!bIsFollowing) transform.Rotate(0, _rotationSpeed * Time.deltaTime, 0);
-        else
+        if (bIsFollowing) 
         {
             Vector3 targetPosition = _target.position;
             transform.position = Vector3.MoveTowards(
@@ -31,17 +28,21 @@ public class GameObject_Bomb : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        float distanceToTarget = Vector3.Distance(transform.position, _target.position);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            _target = other.gameObject.GetComponent<Transform>();
+            float distanceToTarget = Vector3.Distance(transform.position, _target.position);
         bIsFollowing = true;
-
-        Debug.LogWarning("Player currently targeted by bomb!");
+        }
+        
+        Debug.Log("Player currently targeted by bomb!");
     }
 
     void OnTriggerExit(Collider other)
     {
         if (bIsFollowing) bIsFollowing = false;
 
-        Debug.LogWarning("Player evaded the bomb");
+        Debug.Log("Player evaded the bomb");
     }
 
     void OnCollisionEnter(Collision collision)
@@ -52,7 +53,7 @@ public class GameObject_Bomb : MonoBehaviour
             if (playerHealth != null) playerHealth.ReduceHealth(_damageAmount);
             Destroy(gameObject);
 
-            Debug.LogWarning("Damage taken from bomb!");
+            Debug.Log("Damage taken from bomb!");
         }
     }
 }

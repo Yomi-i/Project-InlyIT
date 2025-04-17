@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class GameObject_HealthPack : MonoBehaviour
 {
-    [SerializeField] private float _rotationSpeed = 30f;
     [SerializeField] private float _healthAmount = -10f; // basically hitting to heal.
-    
-    
-    void Update()
-    {
-        transform.Rotate(0, _rotationSpeed * Time.deltaTime, 0);
-    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -21,7 +14,7 @@ public class GameObject_HealthPack : MonoBehaviour
             if (playerHealth != null) playerHealth.ReduceHealth(_healthAmount);
             Destroy(gameObject);
 
-            Debug.LogWarning("Health taken from health pack!");
+            Debug.Log("Health taken from health pack!");
         }
     }
 }
