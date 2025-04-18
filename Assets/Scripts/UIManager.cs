@@ -7,10 +7,13 @@ public class UIManager : MonoBehaviour
 
 
     //Variables.
+    [Header("Note and log")]
     [SerializeField] private KeyCode _closeNoteKey;
     [SerializeField] private GameObject _notePanel;
     [SerializeField] private Text _noteText;
     [SerializeField] private Button _logButton;
+    [Header("OnDeathScreen")]
+    [SerializeField] private GameObject _deathPanel;
 
 
     // flags.
@@ -24,6 +27,7 @@ public class UIManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             _notePanel.SetActive(false);
+            _deathPanel.SetActive(false);
         }
         else Destroy(gameObject);
     }
@@ -62,5 +66,15 @@ public class UIManager : MonoBehaviour
         _noteText.text = null;
         _logButton.gameObject.SetActive(true);
         bIsNoteOpen = false;
+    }
+
+    public void ShowOnDeathScreen()
+    {
+        _deathPanel.SetActive(true);
+    }
+
+    public void OnRespawn()
+    {
+        _deathPanel.SetActive(false);
     }
 }

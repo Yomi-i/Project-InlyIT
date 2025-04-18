@@ -6,20 +6,22 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
+    // Variables.
     [SerializeField] public float _movementSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 40f;
 
     [SerializeField] private  OnScreenJoystick _joystick;
     [SerializeField] private float _deadzone = 0.2f; // for OnScreen joystick controller.
-    
+    private Vector2 _playerInput;
+
 
     // References.
     private Rigidbody _rb;
     private Transform _characterTransform;
 
-
-    // Variables.
-    private Vector2 _playerInput;
+    
+    // Flags.
+    [HideInInspector] public bool bIsInputAllowed = true;
 
 
     void Start()
@@ -42,12 +44,15 @@ public class MovementController : MonoBehaviour
 
     private Vector2 GetInput()
     {
-        
-        if (_joystick._InputDir != Vector2.zero)
+        if (bIsInputAllowed)
         {
-            return _playerInput = _joystick._InputDir;
+            if (_joystick._InputDir != Vector2.zero)
+            {
+                return _playerInput = _joystick._InputDir;
+            }
+            else return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         }
-        else return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        else return Vector2.zero;
     }
 
     private void Move()

@@ -9,6 +9,9 @@ public class AttributesController : MonoBehaviour
     // Variables.
     [SerializeField] private float _playerHealth = 100f;
     [SerializeField] private float _playerHealthMax = 100f;
+    [Header("Player respawn")]
+    [SerializeField] private float _respawnDelay = 3f;
+    [SerializeField]private Vector3 _spawnPoint;
     private float _playerMovementMult;
     private float _boosterDuration;
     private float _nonAffectedMoveSpeed;
@@ -16,6 +19,7 @@ public class AttributesController : MonoBehaviour
 
     // Flags.
     private bool bIsAffected = false;
+    private bool bIsDead = false;
 
     
     void Start()
@@ -41,7 +45,11 @@ public class AttributesController : MonoBehaviour
         if (_playerHealth > _playerHealthMax) _playerHealth = _playerHealthMax;
         Debug.Log("Player health: " +_playerHealth);
         
-        if (_playerHealth <= 0) OnDeath();
+        if (_playerHealth <= 0) 
+        {
+            bIsDead = true;
+            OnDeath();
+        }
     }
 
     public void AffectMovement(float amount, float duration)
@@ -75,8 +83,25 @@ public class AttributesController : MonoBehaviour
 
     private void OnDeath()
     {
-        Destroy(gameObject);
-        InteractionLogger.Instance.ClearLogFile();
-        // TODO: show end game screen with retry;
+        if (bIsDead)
+        {   
+            gameObject.GetComponentInParent<Collider>().enabled = false;
+            _movementController.bIsInputAllowed = false;
+            gameObject.transform.Rotate(0f, 0f, 90f);
+            UIManager.Instance.ShowOnDeathScreen();
+            StartCoroutine(OnRespawn());
+        }
+    }
+    
+    private IEnumerator OnRespawn()
+    {
+        yield return new WaitForSeconds(_respawnDelay);
+        transform.position = _spawnPoint;
+        gameObject.transform.Rotate(0f, 0f, -90f);
+        _playerHealth = _playerHealthMax;
+        gameObject.GetComponentInParent<Collider>().enabled = true;
+        _movementController.bIsInputAllowed = true;
+        bIsDead = false;
+        UIManager.Instance.OnRespawn();
     }
 }
