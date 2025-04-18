@@ -18,6 +18,7 @@ public class InteractionLogger : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            ClearLogFile();
             DontDestroyOnLoad(gameObject);
 
             _gameStartTime = DateTime.Now;
